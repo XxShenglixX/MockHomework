@@ -4,8 +4,6 @@
 #include "List.h"
 #include "CException.h"
 
-List list ;
-
 void setUp(void)
 {
 }
@@ -25,6 +23,31 @@ void test_store_given_5_6_7_should_return_5_6_7(void)
 	Try
 	{
 		store(list,integers,3);
+		
+	}
+	Catch(err)
+	{
+		TEST_FAIL_MESSAGE("Do not expect exception to be generated.");
+	}
+	
+	TEST_ASSERT_EQUAL(5,*(list->buffer));
+	TEST_ASSERT_EQUAL(6,*(list->buffer)+1);
+	TEST_ASSERT_EQUAL(7,*(list->buffer)+2);
+
+	listDel(list);
+}
+
+void test_store_given_5_6_7_8_9_10_should_return_5_6_7_8_9_10(void)
+{
+	CEXCEPTION_T err;
+	
+	List *list = listNew(6);
+	
+	int integers[] = {5,6,7,8,9,10};
+
+	Try
+	{
+		store(list,integers,6);
 		
 	}
 	Catch(err)
@@ -68,7 +91,7 @@ void test_store_given_15_16_17_18_19_20_21_should_return_15_16_17_18_19_20_and_e
 	listDel(list);
 }
 
-void test_retrieve_given_21_22_23_should_return_21_22_23()
+ void test_retrieve_given_21_22_23_should_return_21_22_23()
 {
 	CEXCEPTION_T err;
 	
@@ -77,14 +100,12 @@ void test_retrieve_given_21_22_23_should_return_21_22_23()
 	int storedIntegerSize;
 	int *storedIntegers;
 	int i ;
-	int integers[] = {21,22,23};
+	int integers[] = {21,22,23,24,25,26};
 
 	Try
 	{
-		store(list,integers,3);
-		TEST_ASSERT_EQUAL(21,*(list->buffer));
-		TEST_ASSERT_EQUAL(22,*(list->buffer)+1);
-		TEST_ASSERT_EQUAL(23,*(list->buffer)+2);
+		store(list,integers,6);
+
 		storedIntegers = retrieve(list,&storedIntegerSize);
 	
 		for ( i = 0 ; i < storedIntegerSize ; i ++ )
@@ -96,4 +117,4 @@ void test_retrieve_given_21_22_23_should_return_21_22_23()
 	}
 	
 	listDel(list);
-}
+} 

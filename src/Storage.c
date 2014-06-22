@@ -20,10 +20,7 @@ void store(List *list, int values[], int length)
 	for ( i = 0 ; i < length ; i ++ )
 		{
 			if (!listIsFull(list))
-			{
 				listAdd(list,values[i]) ;
-				list->size ++;
-			}
 			else 
 				Throw(ERR_LIST_FULL);
 		}
@@ -46,18 +43,20 @@ int *retrieve(List *list,int *size)
 	int *array ;
 	int *read;
 	int count = 0;
+	
 	array = list->buffer;
-	read = array ;
+	read = list->buffer ;
+
+	
 	
 	if (listIsEmpty(list))
 		Throw(ERR_LIST_EMPTY);
 	
 	while (!listIsEmpty(list))
-	{ 
+	{ 		
 		*read= listRemove(list);
 		read ++;	
 		count++ ;
-		list->size -- ;
 	}
 	
 	*size = count ;

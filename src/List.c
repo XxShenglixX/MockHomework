@@ -75,14 +75,15 @@ void listAdd(List *list,int data)
  */
 int listRemove(List *list)
 {
-	int data ; // integers stored to be return
+	int data ;	// integers stored to be return
 	
 	if(!listIsEmpty(list))
 	{
-		printf ("Buffer %d : %d\n",list->buffer,*(list->buffer));
+
 		data = *(list->buffer) ;
 		list->buffer++;
 		list->size -- ;
+		
 	}
 	else 
 		Throw(ERR_LIST_EMPTY);
